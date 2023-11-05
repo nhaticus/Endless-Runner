@@ -1,13 +1,30 @@
-class Ball extends Phaser.GameObjects.Sprite {
+class Ball extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         
+        scene.add.existing(this).setScale(2);
+        scene.physics.world.enable(this);
+
+        scene.anims.create({
+            key: 'run-up',
+            frameRate: 2,
+            repeate: -1,
+            frames: this.anims.generateFrameNumbers(texture, {
+                start: 0,
+                end: 3
+            })
+        });
+
+        this.setCollideWorldBounds(true);
+        this.setBounce(0.2)
+
         this.score = 0;
         
     }
     
 
-    update() {
+    update(cursors) {
+        
         let playerVector = new Phaser.Math.Vector2(0 , 0);
 
         if (cursors.left.isDown) {
@@ -22,6 +39,10 @@ class Ball extends Phaser.GameObjects.Sprite {
             playerVector.y = 1;
         }
 
-        this.setVelocity(350 * playerVector.x, 350 * playerVector.y)
+        playerVector.normalize();
+
+        this.play('run-up', true)
+
+        this.setVelocity(game.settings.playerSpeed * playerVector.x, game.settings.playerSpeed * playerVector.y)
     }
 }

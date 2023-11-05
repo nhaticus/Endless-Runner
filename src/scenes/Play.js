@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         this.load.image('grass', './assets/grass.jpg');
-        this.load.spritesheet('player', './assets/spritesheets/Character_002.png', {
+        this.load.spritesheet('player', './assets/spritesheets/player.png', {
             frameWidth: 48,
             frameHeight: 48
         });
@@ -16,35 +16,16 @@ class Play extends Phaser.Scene {
 
         this.grass = this.add.tileSprite(borderSize, 0, width - borderSize * 2, height, 'grass').setOrigin(0, 0).setOrigin(0, 0);
         
-        this.player = this.physics.add.sprite(width / 2, height / 2, 'player', 0).setScale(2);
-        this.player.body.setCollideWorldBounds(true);
-        this.player.body.setSize(32, 32).setOffset(8, 16)
+        this.player = new Ball(this, width/2, height / 2, 'player', 0);
 
-        cursors = this.input.keyboard.createCursorKeys()
-
-        this.PLAYER_VELOCITY = 400;
+        this.cursors = this.input.keyboard.createCursorKeys()
     }
 
     update() {
         this.grass.tilePositionY -= this.game.settings.gameSpeed;
-
-        let playerVector = new Phaser.Math.Vector2(0 , 0);
-
-        if (cursors.left.isDown) {
-            playerVector.x = -1;
-        } else if (cursors.right.isDown) {
-            playerVector.x = 1;
-        }
-
-        if (cursors.up.isDown) {
-            playerVector.y = -1;
-        } else if (cursors.down.isDown) {
-            playerVector.y = 1;
-        }
-
-        playerVector.normalize();
-
-        this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * playerVector.y)
+        
+        this.player.update(this.cursors);
+        
     }
 
 }
