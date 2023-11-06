@@ -27,11 +27,18 @@ class Menu extends Phaser.Scene {
         }
         // title
         this.add.text(borderSize + padding, borderSize, 'Soccer Drill', menuConfig);
+
+        this.add.text(width / 2, 0,'HIGH SCORE:' + highScore, {
+            fontSize: '32px',
+            backgroundColor: '#33cc33',
+            fill: '#ffcc99'
+        }).setOrigin(0.5,0);
       
         // menu options
         menuConfig.fontSize = 24;
         this.add.text(width / 2, height - borderSize * 2,'use UP and DOWN arrows to select options, ENTER to select', menuConfig).setOrigin(0.5);
         this.add.text(width / 2, height - borderSize ,'Game controls: ARROW KEYS to move', menuConfig).setOrigin(0.5);
+        
 
         menuConfig.fontSize = 32;
 
@@ -60,7 +67,8 @@ class Menu extends Phaser.Scene {
             if (selectedOption == 0) {
                 game.settings = {
                     gameSpeed: 5,
-                    playerSpeed: 500
+                    playerSpeed: 500,
+                    points: 1
                 }
                 this.scene.start('playScene');
             } else if (selectedOption === 1) {
