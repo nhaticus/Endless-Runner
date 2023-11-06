@@ -1,5 +1,7 @@
 /**
  * Nhat Thai
+ * Soccer Drill
+ * 
  * 
 */ 
 let width = 1024;
@@ -24,7 +26,7 @@ let config = {
     },
     width: width,
     height: height,
-    scene: [ Menu, Play ]
+    scene: [ Menu, Credit, Play ]
 }
 
 let highScore = 0;

@@ -8,16 +8,16 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.setBackgroundColor(0x4AFF33);
+        this.cameras.main.setBackgroundColor(0x99ffcc);
         this.grass = this.add.sprite(borderSize, 0, 'grass').setOrigin(0, 0);
 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         let menuConfig = {
             fontFamily: 'Courier', 
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            fontSize: '48px',
+            backgroundColor: '#33cc33',
+            color: '#ffffff',
             align: 'right',
             padding: {
                 top: 5,
@@ -25,29 +25,52 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.add.text(width / 2, borderSize, 'HIGH SCORE:' + highScore, menuConfig).setOrigin(0.5);
-        this.add.text(width / 2, height / 2 - borderSize - padding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
-        this.add.text(width / 2, height / 2, 'Use ←→ arrows to move and (F) to fire', menuConfig).setOrigin(0.5);
-        menuConfig.backgroundColor = '#00FF00';
-        menuConfig.color = '#000';
-        this.add.text(width / 2, height / 2 + borderSize + padding, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5);
-        this.add.text(width / 2, height / 2 + borderSize * 2 + padding * 2, 'Press (D) for two player', menuConfig).setOrigin(0.5);
-    
+        // title
+        this.add.text(borderSize + padding, borderSize, 'Soccer Drill', menuConfig);
+      
+        // menu options
+        menuConfig.fontSize = 24;
+        this.add.text(width / 2, height - borderSize * 2,'use UP and DOWN arrows to select options, ENTER to select', menuConfig).setOrigin(0.5);
+        this.add.text(width / 2, height - borderSize ,'Game controls: ARROW KEYS to move', menuConfig).setOrigin(0.5);
+
+        menuConfig.fontSize = 32;
+
+        let playOption = this.add.text(borderSize + padding, borderSize + padding * 2, 'Play', menuConfig);
+        let creditsOption = this.add.text(borderSize + padding, borderSize + padding * 3, 'Credits', menuConfig);
+
+        let selectedOption = 0;
+        let menuOptions = [playOption, creditsOption];
+      
+        // highlighting feature
+        menuOptions[selectedOption].setStyle({ fill: '#ff0' });
+      
+        this.input.keyboard.on('keydown-UP', () => {
+            menuOptions[selectedOption].setStyle({ fill: '#fff' });
+            selectedOption = (selectedOption - 1 + menuOptions.length) % menuOptions.length;
+            menuOptions[selectedOption].setStyle({ fill: '#ff0' });
+        });
+      
+        this.input.keyboard.on('keydown-DOWN', () => {
+            menuOptions[selectedOption].setStyle({ fill: '#fff' });
+            selectedOption = (selectedOption + 1) % menuOptions.length;
+            menuOptions[selectedOption].setStyle({ fill: '#ff0' });
+        });
+      
+        this.input.keyboard.on('keydown-ENTER', () => {
+            if (selectedOption == 0) {
+                game.settings = {
+                    gameSpeed: 5,
+                    playerSpeed: 500
+                }
+                this.scene.start('playScene');
+            } else if (selectedOption === 1) {
+                this.scene.start('creditScene');
+            }
+          });
+
+
     }
 
     update() {
-        game.settings = {
-            gameSpeed: 5,
-            playerSpeed: 500
-        }
-        this.scene.start('playScene')
-        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            game.settings = {
-                gameSpeed: 5,
-                playerSpeed: 500
-            }
-            this.scene.start('playScene')
-        }
-
     }
 }
