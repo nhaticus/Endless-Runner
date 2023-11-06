@@ -5,7 +5,12 @@ class Play extends Phaser.Scene {
 
     preload() {
         this.load.image('grass', './assets/grass.jpg');
+        this.load.image('cone', './assets/cone.png');
         this.load.spritesheet('player', './assets/spritesheets/player.png', {
+            frameWidth: 48,
+            frameHeight: 48
+        });
+        this.load.spritesheet('enemy', './assets/spritesheets/enemy.png', {
             frameWidth: 48,
             frameHeight: 48
         });
@@ -13,6 +18,36 @@ class Play extends Phaser.Scene {
 
     create() {
         this.grass = this.add.tileSprite(borderSize, 0, width - borderSize * 2, height, 'grass').setOrigin(0, 0);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.timerScore = this.time.addEvent ({
+            delay: 1000,
+            callback: () => this.score += this.game.settings.points,
+            callbackScope: this,
+            loop: true
+        })
+
+        this.timerSpeed = this.time.addEvent ({
+            delay: 5000,
+            callback: () => gameSpeed += 0.1,
+            callbackScope: this,
+            loop: true
+        })
+
+        this.coneTimer = this.time.addEvent ({
+            delay: 1000,
+            callback: this.generateCone,
+            callbackScope: this,
+            loop: true
+        })
+
+        this.enemyTimer = this.time.addEvent ({
+            delay: 1000,
+            callback: this.generateEnemy,
+            callbackScope: this,
+            loop: true
+        })
 
         this.add.text(0, 0 ,'R to restart\nM for menu',{
             fontSize: 24,
@@ -52,18 +87,22 @@ class Play extends Phaser.Scene {
         this.player = new Ball(this, width/2, height, 'player', 0).setOrigin(0.5, 1);
         this.player.setBodySize(this.player.width / 2);
 
-        this.cursors = this.input.keyboard.createCursorKeys();
+    }
 
-        this.timer = this.time.addEvent ({
-            delay: 1000,
-            callback: () => this.score += this.game.settings.points,
-            callbackScope: this,
-            loop: true
-        })
+    generateCone() {
+        let coneX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
+        let cone = new Cone(this, coneX, 0, 'cone');
+    }
+
+    generateEnemy() {
+        let enemyX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
+        let enemy = new Enemy(this, enemyX, 0, 'enemy');
+        enemy.setBodySize(enemy.width / 2);
+        enemy.play('run-down', true);
     }
 
     update() {
-        this.grass.tilePositionY -= this.game.settings.gameSpeed;
+        this.grass.tilePositionY -= 5 * gameSpeed;
 
         this.scoreText.text = 'SCORE:' + this.score;
         this.highScoreText.text = 'HIGH SCORE:' + highScore;
@@ -73,6 +112,7 @@ class Play extends Phaser.Scene {
         }
         
         this.player.update(this.cursors);
+        
         
     }
 
