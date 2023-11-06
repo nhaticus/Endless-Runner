@@ -1,7 +1,7 @@
 /**
  * Nhat Thai
- * Soccer Drill
- * 
+ * Game: Soccer Drill
+ * Hours spend: 8 so far
  * 
 */ 
 let width = 1024;
