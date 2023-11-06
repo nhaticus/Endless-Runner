@@ -24,7 +24,7 @@ class Credit extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(0, 0 ,'M to go back to menu', menuConfig).setOrigin(0, 0);
+        this.add.text(width / 2, 0 ,'M to go back to menu', menuConfig).setOrigin(0.5, 0);
         //menu scene option
         this.input.keyboard.on('keydown-M', () => {
             this.scene.start('menuScene');
