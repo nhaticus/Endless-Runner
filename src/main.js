@@ -30,6 +30,6 @@ let config = {
 }
 
 let highScore = 0;
-let keySPACE, playerDirection;
+let gameSpeed;
 
 let game = new Phaser.Game(config);

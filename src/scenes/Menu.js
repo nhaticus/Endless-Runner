@@ -11,8 +11,6 @@ class Menu extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(0x99ffcc);
         this.grass = this.add.sprite(borderSize, 0, 'grass').setOrigin(0, 0);
 
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
         let menuConfig = {
             fontFamily: 'Courier', 
             fontSize: '48px',
@@ -65,12 +63,13 @@ class Menu extends Phaser.Scene {
       
         this.input.keyboard.on('keydown-ENTER', () => {
             if (selectedOption == 0) {
+                gameSpeed = 1;
                 game.settings = {
-                    gameSpeed: 5,
                     playerSpeed: 500,
                     points: 1
                 }
                 this.scene.start('playScene');
+
             } else if (selectedOption === 1) {
                 this.scene.start('creditScene');
             }

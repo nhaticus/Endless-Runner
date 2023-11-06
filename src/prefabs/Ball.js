@@ -2,12 +2,12 @@ class Ball extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         
-        scene.add.existing(this).setScale(2);
+        scene.add.existing(this).setScale(3);
         scene.physics.world.enable(this);
 
         scene.anims.create({
             key: 'run-up',
-            frameRate: 2,
+            frameRate: 2 * gameSpeed,
             repeate: -1,
             frames: this.anims.generateFrameNumbers(texture, {
                 start: 0,
@@ -16,7 +16,6 @@ class Ball extends Phaser.Physics.Arcade.Sprite {
         });
 
         this.setCollideWorldBounds(true);
-        this.setBounce(0.2)
 
         this.score = 0;
         
