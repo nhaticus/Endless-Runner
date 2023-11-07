@@ -23,7 +23,7 @@ class Credit extends Phaser.Scene {
         this.add.text(width / 2, 0 ,'M to go back to menu', menuConfig).setOrigin(0.5, 0);
         //menu scene option
         this.input.keyboard.on('keydown-M', () => {
-            this.sound.play('selection');
+            this.sound.play('button-pressed');
             this.scene.start('menuScene');
         });
         this.add.text(width / 2, height / 2, 'Soccer Drill\n\
