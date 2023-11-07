@@ -3,19 +3,6 @@ class Play extends Phaser.Scene {
         super("playScene")
     }
 
-    preload() {
-        // this.load.image('grass', './assets/grass.jpg');
-        // this.load.image('cone', './assets/cone.png');
-        // this.load.spritesheet('player', './assets/spritesheets/player.png', {
-        //     frameWidth: 48,
-        //     frameHeight: 48
-        // });
-        // this.load.spritesheet('enemy', './assets/spritesheets/enemy.png', {
-        //     frameWidth: 48,
-        //     frameHeight: 48
-        // });
-    }
-
     create() {
         this.grass = this.add.tileSprite(borderSize, 0, width - borderSize * 2, height, 'grass').setOrigin(0, 0);
 
@@ -121,7 +108,7 @@ class Play extends Phaser.Scene {
         
         this.player.update(this.cursors);
         
-        console.log(gameSpeed);
+        // console.log(gameSpeed);
 
     }
 
