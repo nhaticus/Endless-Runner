@@ -51,11 +51,13 @@ class Play extends Phaser.Scene {
         //menu scene option
         this.input.keyboard.on('keydown-M', () => {
             over = false;
+            this.sound.play('button-pressed');
             this.scene.start('menuScene');
         });
 
         //restart game option
         this.input.keyboard.on('keydown-R', () => {
+            this.sound.play('restart');
             over = false;
             gameSpeed = 1;
             this.scene.restart();
@@ -102,8 +104,6 @@ class Play extends Phaser.Scene {
         if(!over){
             let enemyX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
             this.enemy = new Enemy(this, enemyX, 0, 'enemy');
-            this.enemy.setBodySize(this.enemy.width / 2);
-            this.enemy.play('run-down', true);
             this.enemyTimer.delay = Phaser.Math.Between(100, 2000 - gameSpeed * 10);
             this.physics.add.collider(this.player, this.enemy, () => {
                 this.gameOver();
@@ -113,6 +113,7 @@ class Play extends Phaser.Scene {
 
     gameOver() {
         over = true;
+        this.sound.play('game-over');
         this.player.destroy();
         this.add.text(width / 2, height / 2 ,'GAME OVER\nYour Score:' + this.score + '\nPress R to try again or M for menu').setOrigin(0.5, 0).setStyle({
             backgroundColor: '#33cc33',

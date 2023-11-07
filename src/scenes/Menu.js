@@ -47,18 +47,21 @@ class Menu extends Phaser.Scene {
         menuOptions[selectedOption].setStyle({ fill: '#ff0' });
       
         this.input.keyboard.on('keydown-UP', () => {
+            this.sound.play('selection');
             menuOptions[selectedOption].setStyle({ fill: '#fff' });
             selectedOption = (selectedOption - 1 + menuOptions.length) % menuOptions.length;
             menuOptions[selectedOption].setStyle({ fill: '#ff0' });
         });
       
         this.input.keyboard.on('keydown-DOWN', () => {
+            this.sound.play('selection');
             menuOptions[selectedOption].setStyle({ fill: '#fff' });
             selectedOption = (selectedOption + 1) % menuOptions.length;
             menuOptions[selectedOption].setStyle({ fill: '#ff0' });
         });
       
         this.input.keyboard.on('keydown-ENTER', () => {
+            this.sound.play('button-pressed');
             if (selectedOption == 0) {
                 gameSpeed = 1;
                 game.settings = {
