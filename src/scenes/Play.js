@@ -131,12 +131,12 @@ class Play extends Phaser.Scene {
 
     update() {
         if(!over){
+            this.player.update(this.cursors);
+            
             this.grass.tilePositionY -= 5 * gameSpeed;
 
             this.scoreText.text = 'SCORE:' + this.score;
             this.highScoreText.text = 'HIGH SCORE:' + highScore;
-            
-            this.player.update(this.cursors);
         }
     }
 }

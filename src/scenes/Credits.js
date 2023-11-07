@@ -25,10 +25,10 @@ class Credit extends Phaser.Scene {
         this.input.keyboard.on('keydown-M', () => {
             this.scene.start('menuScene');
         });
-        this.add.text(width / 2, height / 2 - borderSize, 'Soccer Drill\n\
+        this.add.text(width / 2, height / 2, 'Soccer Drill\n\
 Game by Nhat Thai\n\
 Arts: Nhat Thai\n\
-Sounds: ', menuConfig).setOrigin(0.5);
+Sounds: Pixabay royalty-free sound effects', menuConfig).setOrigin(0.5);
 
     }
 }

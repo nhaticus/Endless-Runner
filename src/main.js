@@ -30,7 +30,7 @@ let config = {
 }
 
 let highScore = 0;
-let gameSpeed;
+let gameSpeed = 1;
 let over = false;
 
 let game = new Phaser.Game(config);

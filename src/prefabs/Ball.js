@@ -31,7 +31,6 @@ class Ball extends Phaser.Physics.Arcade.Sprite {
         playerVector.normalize();
 
         this.play('run-up', true)
-
         this.setVelocity(game.settings.playerSpeed * playerVector.x, game.settings.playerSpeed * playerVector.y)
     }
 }

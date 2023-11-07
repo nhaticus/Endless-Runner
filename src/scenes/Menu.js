@@ -69,11 +69,6 @@ class Menu extends Phaser.Scene {
             } else if (selectedOption === 1) {
                 this.scene.start('creditScene');
             }
-          });
-
-
-    }
-
-    update() {
+        });
     }
 }
