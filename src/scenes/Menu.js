@@ -3,12 +3,9 @@ class Menu extends Phaser.Scene {
         super('menuScene');
     };
 
-    preload() {
-        this.load.image('grass', './assets/grass.jpg');
-    }
-
     create() {
         this.cameras.main.setBackgroundColor(0x99ffcc);
+
         this.grass = this.add.sprite(borderSize, 0, 'grass').setOrigin(0, 0);
 
         let menuConfig = {
@@ -68,8 +65,7 @@ class Menu extends Phaser.Scene {
                     playerSpeed: 500,
                     points: 1
                 }
-                this.scene.start('loadScene');
-
+                this.scene.start('playScene');
             } else if (selectedOption === 1) {
                 this.scene.start('creditScene');
             }

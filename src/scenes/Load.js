@@ -4,10 +4,11 @@ class Load extends Phaser.Scene{
     }
 
     preload() {
-        // load the visual goodz
         this.load.path = './assets/'
         this.load.image('grass', 'grass.jpg');
         this.load.image('cone', 'cone.png');
+        this.load.image('creditBG', 'credit_art.png');
+
         this.load.spritesheet('player', 'spritesheets/player.png', {
             frameWidth: 48,
             frameHeight: 48
@@ -39,6 +40,6 @@ class Load extends Phaser.Scene{
             })
         });
 
-        this.scene.start('playScene')
+        this.scene.start('menuScene')
     }
 }
