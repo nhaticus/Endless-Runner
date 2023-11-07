@@ -7,6 +7,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
 
         this.setImmovable(true);
 
-        this.setVelocityY(300 * gameSpeed)
+        this.setVelocityY(300 + 10 * gameSpeed)
     }
 }
