@@ -91,20 +91,17 @@ class Play extends Phaser.Scene {
 
     generateCone() {
         let coneX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
-        let cone = new Cone(this, coneX, 0, 'cone');
-        if(this.coneTimer.delay > 500) {
-            this.coneTimer.delay -= 5 * gameSpeed;
-        }
+        this.cone = new Cone(this, coneX, 0, 'cone');
+        this.coneTimer.delay = Phaser.Math.Between(100, 1500 - gameSpeed * 10);
     }
 
     generateEnemy() {
         let enemyX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
-        let enemy = new Enemy(this, enemyX, 0, 'enemy');
-        enemy.setBodySize(enemy.width / 2);
-        enemy.play('run-down', true);
-        if(this.enemyTimer.delay > 500) {
-            this.enemyTimer.delay -= 5 * gameSpeed;
-        }
+        this.enemy = new Enemy(this, enemyX, 0, 'enemy');
+        this.enemy.setBodySize(this.enemy.width / 2);
+        this.enemy.play('run-down', true);
+        this.enemyTimer.delay = Phaser.Math.Between(100, 2000 - gameSpeed * 10);
+        this.phys
     }
 
     update() {
