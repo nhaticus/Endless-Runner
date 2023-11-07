@@ -10,7 +10,10 @@ class Play extends Phaser.Scene {
 
         this.timerScore = this.time.addEvent ({
             delay: 1000,
-            callback: () => this.score += this.game.settings.points,
+            callback: () => {
+                if(!over){
+                    this.score += this.game.settings.points}
+            },
             callbackScope: this,
             loop: true
         })
@@ -44,13 +47,16 @@ class Play extends Phaser.Scene {
             fontSize: 24,
             backgroundColor: '#33cc33'
         }).setOrigin(0, 0);
+
         //menu scene option
         this.input.keyboard.on('keydown-M', () => {
+            over = false;
             this.scene.start('menuScene');
         });
 
         //restart game option
         this.input.keyboard.on('keydown-R', () => {
+            over = false;
             gameSpeed = 1;
             this.scene.restart();
         });
@@ -82,34 +88,55 @@ class Play extends Phaser.Scene {
     }
 
     generateCone() {
-        let coneX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
-        this.cone = new Cone(this, coneX, 0, 'cone');
-        this.coneTimer.delay = Phaser.Math.Between(100, 1500 - gameSpeed * 10);
+        if(!over){
+            let coneX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
+            this.cone = new Cone(this, coneX, 0, 'cone');
+            this.coneTimer.delay = Phaser.Math.Between(100, 1500 - gameSpeed * 10);
+            this.physics.add.collider(this.player, this.cone, () => {
+                this.gameOver();
+            });
+        }
     }
 
     generateEnemy() {
-        let enemyX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
-        this.enemy = new Enemy(this, enemyX, 0, 'enemy');
-        this.enemy.setBodySize(this.enemy.width / 2);
-        this.enemy.play('run-down', true);
-        this.enemyTimer.delay = Phaser.Math.Between(100, 2000 - gameSpeed * 10);
-        
+        if(!over){
+            let enemyX = Phaser.Math.Between(borderSize + padding, width - borderSize - padding / 2);
+            this.enemy = new Enemy(this, enemyX, 0, 'enemy');
+            this.enemy.setBodySize(this.enemy.width / 2);
+            this.enemy.play('run-down', true);
+            this.enemyTimer.delay = Phaser.Math.Between(100, 2000 - gameSpeed * 10);
+            this.physics.add.collider(this.player, this.enemy, () => {
+                this.gameOver();
+            });
+        }
+    }
+
+    gameOver() {
+        over = true;
+        this.player.destroy();
+        this.add.text(width / 2, height / 2 ,'GAME OVER\nYour Score:' + this.score + '\nPress R to try again or M for menu').setOrigin(0.5, 0).setStyle({
+            backgroundColor: '#33cc33',
+            fontSize: '40px',
+            align: 'center',
+        });
+        if(this.score > highScore) {
+            highScore = this.score;
+            this.add.text(width / 2, height / 2 - padding,'NEW HIGHSCORE!!!').setOrigin(0.5).setStyle({
+                backgroundColor: '#33cc33',
+                fontSize: '40px',
+                align: 'center',
+            });
+        } 
     }
 
     update() {
-        this.grass.tilePositionY -= 5 * gameSpeed;
+        if(!over){
+            this.grass.tilePositionY -= 5 * gameSpeed;
 
-        this.scoreText.text = 'SCORE:' + this.score;
-        this.highScoreText.text = 'HIGH SCORE:' + highScore;
-
-        if (this.score > highScore) {
-            highScore = this.score;
+            this.scoreText.text = 'SCORE:' + this.score;
+            this.highScoreText.text = 'HIGH SCORE:' + highScore;
+            
+            this.player.update(this.cursors);
         }
-        
-        this.player.update(this.cursors);
-        
-        // console.log(gameSpeed);
-
     }
-
 }
