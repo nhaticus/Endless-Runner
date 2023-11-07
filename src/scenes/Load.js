@@ -22,7 +22,7 @@ class Load extends Phaser.Scene{
     create() {
         this.anims.create({
             key: 'run-up',
-            frameRate: 2 * gameSpeed,
+            frameRate: 4,
             repeate: -1,
             frames: this.anims.generateFrameNumbers('player', {
                 start: 0,
@@ -32,7 +32,7 @@ class Load extends Phaser.Scene{
 
         this.anims.create({
             key: 'run-down',
-            frameRate: 2 * gameSpeed,
+            frameRate: 4,
             repeate: -1,
             frames: this.anims.generateFrameNumbers('enemy', {
                 start: 0,
