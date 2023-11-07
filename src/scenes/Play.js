@@ -4,16 +4,16 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('grass', './assets/grass.jpg');
-        this.load.image('cone', './assets/cone.png');
-        this.load.spritesheet('player', './assets/spritesheets/player.png', {
-            frameWidth: 48,
-            frameHeight: 48
-        });
-        this.load.spritesheet('enemy', './assets/spritesheets/enemy.png', {
-            frameWidth: 48,
-            frameHeight: 48
-        });
+        // this.load.image('grass', './assets/grass.jpg');
+        // this.load.image('cone', './assets/cone.png');
+        // this.load.spritesheet('player', './assets/spritesheets/player.png', {
+        //     frameWidth: 48,
+        //     frameHeight: 48
+        // });
+        // this.load.spritesheet('enemy', './assets/spritesheets/enemy.png', {
+        //     frameWidth: 48,
+        //     frameHeight: 48
+        // });
     }
 
     create() {
@@ -29,8 +29,12 @@ class Play extends Phaser.Scene {
         })
 
         this.timerSpeed = this.time.addEvent ({
-            delay: 5000,
-            callback: () => gameSpeed += 0.1,
+            delay: 1000,
+            callback: () => {
+                if (gameSpeed < 3){
+                    gameSpeed += 0.1   
+                }
+            },
             callbackScope: this,
             loop: true
         })
@@ -60,6 +64,7 @@ class Play extends Phaser.Scene {
 
         //restart game option
         this.input.keyboard.on('keydown-R', () => {
+            gameSpeed = 1;
             this.scene.restart();
         });
 
@@ -101,7 +106,7 @@ class Play extends Phaser.Scene {
         this.enemy.setBodySize(this.enemy.width / 2);
         this.enemy.play('run-down', true);
         this.enemyTimer.delay = Phaser.Math.Between(100, 2000 - gameSpeed * 10);
-        this.phys
+        
     }
 
     update() {
@@ -116,7 +121,7 @@ class Play extends Phaser.Scene {
         
         this.player.update(this.cursors);
         
-        //console.log(this.enemyTimer.delay);
+        console.log(gameSpeed);
 
     }
 

@@ -68,7 +68,7 @@ class Menu extends Phaser.Scene {
                     playerSpeed: 500,
                     points: 1
                 }
-                this.scene.start('playScene');
+                this.scene.start('loadScene');
 
             } else if (selectedOption === 1) {
                 this.scene.start('creditScene');

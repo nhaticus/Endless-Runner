@@ -26,7 +26,7 @@ let config = {
     },
     width: width,
     height: height,
-    scene: [ Menu, Credit, Play ]
+    scene: [ Menu, Load, Credit, Play ]
 }
 
 let highScore = 0;
