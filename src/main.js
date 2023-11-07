@@ -26,10 +26,11 @@ let config = {
     },
     width: width,
     height: height,
-    scene: [ Menu, Credit, Play ]
+    scene: [ Load, Menu, Credit, Play ]
 }
 
 let highScore = 0;
 let gameSpeed;
+let over = false;
 
 let game = new Phaser.Game(config);

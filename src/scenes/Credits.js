@@ -3,10 +3,6 @@ class Credit extends Phaser.Scene {
         super('creditScene')
     }
 
-    preload(){
-        this.load.image('creditBG', './assets/credit_art.png');
-    }
-
     create() {
         this.cameras.main.setBackgroundColor(0x99ffcc);
         this.add.image(0, 0, 'creditBG').setOrigin(0, 0);

@@ -5,16 +5,6 @@ class Ball extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this).setScale(3);
         scene.physics.world.enable(this);
 
-        scene.anims.create({
-            key: 'run-up',
-            frameRate: 2 * gameSpeed,
-            repeate: -1,
-            frames: this.anims.generateFrameNumbers(texture, {
-                start: 0,
-                end: 3
-            })
-        });
-
         this.setCollideWorldBounds(true);
 
         this.score = 0;
